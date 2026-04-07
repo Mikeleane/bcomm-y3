@@ -1,8 +1,17 @@
-import { NextResponse } from "next/server";
-import pdfParseImport from "pdf-parse";
+﻿import { NextResponse } from "next/server";
 import * as mammoth from "mammoth";
 
 export const runtime = "nodejs";
+async function parsePdf(buffer: any) {
+  const mod: any = await import("pdf-parse");
+  const fn = mod.default ?? mod;
+  return fn(buffer);
+}
+
+
+
+
+
 
 const pdfParse: any = (pdfParseImport as any).default ?? (pdfParseImport as any);
 
@@ -31,7 +40,7 @@ export async function POST(req: Request) {
 
     if (type === "application/pdf" || ext === "pdf") {
       kind = "pdf";
-      const data = await pdfParse(buf);
+      const data = await parsePdf(buf);
       text = data?.text || "";
     } else if (
       type === "application/vnd.openxmlformats-officedocument.wordprocessingml.document" ||
@@ -63,3 +72,6 @@ export async function POST(req: Request) {
     );
   }
 }
+
+
+

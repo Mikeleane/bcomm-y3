@@ -7,14 +7,6 @@ async function parsePdf(buffer: any) {
   const fn = mod.default ?? mod;
   return fn(buffer);
 }
-
-
-
-
-
-
-const pdfParse: any = (pdfParseImport as any).default ?? (pdfParseImport as any);
-
 function extOf(name: string) {
   const parts = (name || "").split(".");
   return (parts.length > 1 ? parts.pop() : "")?.toLowerCase() || "";
@@ -72,6 +64,7 @@ export async function POST(req: Request) {
     );
   }
 }
+
 
 
 

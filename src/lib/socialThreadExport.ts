@@ -1,10 +1,10 @@
-"use client";
+﻿"use client";
 
 /**
  * Social Thread standalone HTML export (BComm Y3)
  * - Standard / Tongue-in-cheek
  * - Lens dropdown
- * - Unpack 🧩 (tap-to-reveal hidden convo). Works:
+ * - Unpack ðŸ§© (tap-to-reveal hidden convo). Works:
  *    - Online: fetches /api/social-thread/unpack
  *    - Offline (file://): ONLY if unpacks were precomputed + embedded at export time
  * - Read-aloud with multi-voice (auto voices per speaker) + emoji stripping for TTS
@@ -137,7 +137,7 @@ export function buildSocialThreadHtml(pack: SocialThreadPack, options?: BuildSoc
     defaultLens: options?.defaultLens ?? "builder",
     defaultVariant: options?.defaultVariant ?? "standard",
     defaultPace: options?.defaultPace ?? "all",
-    initialVisibleCount: options?.initialVisibleCount ?? 4,
+    initialVisibleCount: options?.initialVisibleCount ?? 1,
     defaultAutoVoices: options?.defaultAutoVoices ?? true,
     defaultSpeakEmojis: options?.defaultSpeakEmojis ?? false,
     defaultShowEmojis: options?.defaultShowEmojis ?? true,
@@ -498,8 +498,8 @@ export function buildSocialThreadHtml(pack: SocialThreadPack, options?: BuildSoc
         <div class="ph">
           <span>Thread</span>
           <span style="display:flex;gap:8px;align-items:center">
-            <button class="miniBtn good" id="btnNext" title="Reveal next message">Next 👉</button>
-            <button class="miniBtn" id="btnAll" title="Show all messages">Show all 📜</button>
+            <button class="miniBtn good" id="btnNext" title="Reveal next message">Next ðŸ‘‰</button>
+            <button class="miniBtn" id="btnAll" title="Show all messages">Show all ðŸ“œ</button>
           </span>
         </div>
         <div class="pb" id="thread"></div>
@@ -511,7 +511,7 @@ export function buildSocialThreadHtml(pack: SocialThreadPack, options?: BuildSoc
 
           <div class="toolBox">
             <div style="font-weight:1000">Read-aloud voices</div>
-            <div class="hint">Auto voices assigns a different voice per speaker when available. Emojis are stripped from spoken text unless you enable “Speak emojis”.</div>
+            <div class="hint">Auto voices assigns a different voice per speaker when available. Emojis are stripped from spoken text unless you enable â€œSpeak emojisâ€.</div>
 
             ${o.showApiBaseControl ? `
             <div class="row">
@@ -674,7 +674,7 @@ export function buildSocialThreadHtml(pack: SocialThreadPack, options?: BuildSoc
 
   function avatarLetter(name){
     const n = (name || "").trim();
-    if(!n) return "•";
+    if(!n) return "â€¢";
     return n[0].toUpperCase();
   }
 
@@ -849,8 +849,8 @@ export function buildSocialThreadHtml(pack: SocialThreadPack, options?: BuildSoc
       return (
         '<div class="unpack">' +
           '<div class="unpackHead">' +
-            '<div><div class="unpackTitle">Hidden conversation 🧩</div>' +
-            '<div class="unpackSub">Generating…</div></div>' +
+            '<div><div class="unpackTitle">Hidden conversation ðŸ§©</div>' +
+            '<div class="unpackSub">Generatingâ€¦</div></div>' +
             '<button class="miniBtn" data-action="close_unpack" data-mid="'+escHtml(mid)+'">Close</button>' +
           '</div>' +
           '<div class="unpackBody"><div class="loader"><span class="dot"></span><span class="dot"></span><span class="dot"></span> thinking</div></div>' +
@@ -862,10 +862,10 @@ export function buildSocialThreadHtml(pack: SocialThreadPack, options?: BuildSoc
       return (
         '<div class="unpack">' +
           '<div class="unpackHead">' +
-            '<div><div class="unpackTitle">Unpack unavailable 😵</div>' +
+            '<div><div class="unpackTitle">Unpack unavailable ðŸ˜µ</div>' +
             '<div class="unpackSub">'+escHtml(st.error || "Unknown error")+'</div></div>' +
             '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
-              '<button class="miniBtn warn" data-action="regen_unpack" data-mid="'+escHtml(mid)+'">Try again 🔁</button>' +
+              '<button class="miniBtn warn" data-action="regen_unpack" data-mid="'+escHtml(mid)+'">Try again ðŸ”</button>' +
               '<button class="miniBtn" data-action="close_unpack" data-mid="'+escHtml(mid)+'">Close</button>' +
             '</div>' +
           '</div>' +
@@ -881,7 +881,7 @@ export function buildSocialThreadHtml(pack: SocialThreadPack, options?: BuildSoc
 
     const coreHtml =
       '<div class="coreBox">' +
-        '<div style="font-weight:1000">Core 🧠</div>' +
+        '<div style="font-weight:1000">Core ðŸ§ </div>' +
         (core.claim ? '<div class="coreRow"><b>Claim:</b> '+highlight(core.claim)+'</div>' : '') +
         (core.evidence ? '<div class="coreRow"><b>Evidence:</b> '+highlight(core.evidence)+'</div>' : '') +
         (core.assumptions ? '<div class="coreRow"><b>Assumption:</b> '+highlight(core.assumptions)+'</div>' : '') +
@@ -894,7 +894,7 @@ export function buildSocialThreadHtml(pack: SocialThreadPack, options?: BuildSoc
           '<div class="miniMsg">' +
             '<div class="miniTop">' +
               '<div class="miniSpeaker">'+escHtml(stripEmoji(x.speaker || "Voice"))+'</div>' +
-              '<button class="miniBtn" data-action="read_unpack_line" data-speaker="'+escHtml(x.speaker||"")+'">🔊</button>' +
+              '<button class="miniBtn" data-action="read_unpack_line" data-speaker="'+escHtml(x.speaker||"")+'">ðŸ”Š</button>' +
             '</div>' +
             '<div class="miniText">'+highlight(x.text || "")+'</div>' +
           '</div>'
@@ -903,16 +903,16 @@ export function buildSocialThreadHtml(pack: SocialThreadPack, options?: BuildSoc
 
     const controlsHtml =
       '<div class="actions">' +
-        '<button class="miniBtn good" data-action="reveal_next" data-mid="'+escHtml(mid)+'">Reveal next 👉</button>' +
-        '<button class="miniBtn" data-action="reveal_all" data-mid="'+escHtml(mid)+'">Reveal all 📜</button>' +
-        '<button class="miniBtn warn" data-action="regen_unpack" data-mid="'+escHtml(mid)+'">Regenerate 🔁</button>' +
+        '<button class="miniBtn good" data-action="reveal_next" data-mid="'+escHtml(mid)+'">Reveal next ðŸ‘‰</button>' +
+        '<button class="miniBtn" data-action="reveal_all" data-mid="'+escHtml(mid)+'">Reveal all ðŸ“œ</button>' +
+        '<button class="miniBtn warn" data-action="regen_unpack" data-mid="'+escHtml(mid)+'">Regenerate ðŸ”</button>' +
         '<button class="miniBtn" data-action="close_unpack" data-mid="'+escHtml(mid)+'">Close</button>' +
       '</div>';
 
     return (
       '<div class="unpack">' +
         '<div class="unpackHead">' +
-          '<div><div class="unpackTitle">Hidden conversation 🎭</div>' +
+          '<div><div class="unpackTitle">Hidden conversation ðŸŽ­</div>' +
           '<div class="unpackSub">'+escHtml(shown)+'/'+escHtml(steps.length)+' revealed</div></div>' +
           '<button class="miniBtn" data-action="close_unpack" data-mid="'+escHtml(mid)+'">Close</button>' +
         '</div>' +
@@ -1006,9 +1006,9 @@ export function buildSocialThreadHtml(pack: SocialThreadPack, options?: BuildSoc
             '<div class="text">'+ highlight(m.text) +'</div>' +
 
             '<div class="actions">' +
-              '<button class="miniBtn good" data-action="unpack" data-mid="'+escHtml(mid)+'">Unpack 🧩</button>' +
-              '<button class="miniBtn" data-action="read_one" data-mid="'+escHtml(mid)+'">Read 🔊</button>' +
-              (hasUnpack ? '<button class="miniBtn" data-action="close_unpack" data-mid="'+escHtml(mid)+'">Hide 🙈</button>' : '') +
+              '<button class="miniBtn good" data-action="unpack" data-mid="'+escHtml(mid)+'">Unpack ðŸ§©</button>' +
+              '<button class="miniBtn" data-action="read_one" data-mid="'+escHtml(mid)+'">Read ðŸ”Š</button>' +
+              (hasUnpack ? '<button class="miniBtn" data-action="close_unpack" data-mid="'+escHtml(mid)+'">Hide ðŸ™ˆ</button>' : '') +
             '</div>' +
 
             (hasUnpack ? renderUnpack(mid) : '') +
@@ -1333,3 +1333,5 @@ function escapeHtml(s: string) {
 function escapeHtmlAttr(s: string) {
   return escapeHtml(s).replaceAll("\n", " ").replaceAll("\r", " ");
 }
+
+

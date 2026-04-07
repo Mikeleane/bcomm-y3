@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import React, { useEffect, useMemo, useState } from "react";
 import { exportInteractiveHtmlFromState } from "@/lib/interactiveExport";
@@ -140,7 +140,7 @@ export default function Page() {
 
     return (
       <span>
-        {parts.map((p, i) => {
+        {parts.map((p: string, i: number) => {
           const key = `${i}-${p}`;
           const g = map.get(p.toLowerCase());
           if (!g) return <React.Fragment key={key}>{p}</React.Fragment>;
@@ -390,7 +390,7 @@ export default function Page() {
 
           <label style={{ display: "flex", alignItems: "center", gap: 8, fontSize: 16, userSelect: "none" }}>
             <input type="checkbox" checked={embedUnpacks} onChange={(e) => setEmbedUnpacks(e.target.checked)} />
-            Embed “Unpack” for offline (file://)
+            Embed â€œUnpackâ€ for offline (file://)
           </label>
         </div>
 
@@ -536,3 +536,6 @@ export default function Page() {
     </main>
   );
 }
+
+
+
